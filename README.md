@@ -33,6 +33,6 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-  -n NAME, --name NAME  Name of the client to start
+  -n NAME, --name NAME  Name of the server to start
   -p PATH, --path PATH  Config file to use default ~/.config/sshvpn.cfg
 ```

@@ -124,20 +124,11 @@ class VPN:
         self._init()
 
     def _init(self):
-        client = self.config.clients[self.name]
-        server = self.config.servers[client['server']]
-        routes = []
-        for network in client['network'].split(','):
-            network = network.strip()
-            networkcfg = self.config.networks[network]
-            for route in networkcfg['routes'].split(','):
-                route = route.strip()
-                routes.append(route)
-
+        server = self.config.servers[self.name]
         iprange = random.randint(0, 254)
         tunip = '10.66.{}.1/30'.format(iprange)
         gwip = '10.66.{}.2'.format(iprange)
-        self.tun = TUN(self.name, tunip, routes)
+        self.tun = TUN(self.name, tunip, server['routes'])
         self.sshproxy = SSHProxy(server)
         self.tunsocks = Tun2Socks(self.tun.name, gwip, self.sshproxy.listenport)
 

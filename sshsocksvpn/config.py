@@ -15,8 +15,6 @@ class Config:
             raise ValueError("Failed to read config {}".format(e))
 
         self.servers = dict()
-        self.clients = dict()
-        self.networks = dict()
         self.config = config
         self.parse()
 
@@ -30,8 +28,14 @@ class Config:
         for section in self.config.sections():
             configtype, _, name = section.partition('.')
             if configtype == 'server':
-                self.servers[name] = get_section_dict(section)
-            elif configtype == 'client':
-                self.clients[name] = get_section_dict(section)
-            elif configtype == 'network':
-                self.networks[name] = get_section_dict(section)
+                server = get_section_dict(section)
+                if 'routes' in server:
+                    server['routes'] = [route.strip() for route in server['routes'].split(',')]
+                elif 'network' in server:
+                    routes = []
+                    server['routes'] = routes
+                    for networkname in server['network'].split(','):
+                        networkname = networkname.strip()
+                        network = get_section_dict('network.{}'.format(networkname))
+                        routes.extend([route.strip() for route in network['routes'].split(',')])
+                self.servers[name] = server

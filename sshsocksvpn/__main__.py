@@ -24,7 +24,7 @@ def main():
     except Exception as e:
         exit('Failed to read config: {}'.format(e))
 
-    if options.name not in config.clients:
+    if options.name not in config.servers:
         exit('Could not find {} in config'.format(options.name), status=1)
 
     vpn = VPN(config, options.name)
