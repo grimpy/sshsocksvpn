@@ -9,7 +9,7 @@ Have an easy way to manage socks tunnels created via SSH and manage a tun2socks 
 [Python3](http://www.python.org/)
 [openssh](https://www.openssh.com/portable.html)
 [badvpn-tun2socks](https://github.com/ambrop72/badvpn)
-[psutil](http://knackered.org/angus/psutils/)
+[psutil](https://github.com/giampaolo/psutil)
 
 ## Installation
 
